@@ -4,14 +4,6 @@ class MasterViewController: UICollectionViewController {
     
     let charactersData = Characters.loadCharacters()
     
-    // layout constants
-    let columns: CGFloat = 3.0
-    let insets: CGFloat = 8.0
-    let spacing: CGFloat = 8.0
-    let lineSpacing: CGFloat = 8.0
-    var isRandom = false
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +24,6 @@ class MasterViewController: UICollectionViewController {
     
     func refreshControlDidFire() {
         
-        //isRandom = !isRandom
         collectionView?.reloadData()
         collectionView?.refreshControl?.endRefreshing()
     }
@@ -70,44 +61,6 @@ extension MasterViewController {
         performSegue(withIdentifier: "MasterToDetail", sender: character)
     }
 }
-
-// MARK: UICollectionViewDelegateFlowLayout
-extension MasterViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let width = Int(collectionView.frame.width / 3 - (insets + spacing))
-        
-        let randomSize: Int
-        if isRandom {
-            randomSize = 64 * Int(arc4random_uniform(UInt32(3)) + 1)
-        } else {
-            randomSize = width
-        }
-        
-        return CGSize(width: randomSize, height: randomSize)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: insets, left: insets, bottom: insets, right: insets)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return spacing
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return lineSpacing
-    }
-}
-
-
-
-
-
-
-
-
 
 
 
